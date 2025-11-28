@@ -1,103 +1,90 @@
 import { defineField, defineType } from "sanity";
 
 export default defineType({
-  name: "education",
-  title: "Education",
+  name: "contact",
+  title: "Contact Form Submissions",
   type: "document",
   fields: [
     defineField({
-      name: "institution",
-      title: "Institution Name",
+      name: "name",
+      title: "Name",
       type: "string",
       validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "degree",
-      title: "Degree",
+      name: "email",
+      title: "Email",
       type: "string",
-      description: "E.g., 'Bachelor of Science', 'Master of Computer Science'",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) => Rule.required().email(),
     }),
     defineField({
-      name: "fieldOfStudy",
-      title: "Field of Study",
+      name: "subject",
+      title: "Subject",
       type: "string",
-      description: "E.g., 'Computer Science', 'Software Engineering'",
     }),
     defineField({
-      name: "startDate",
-      title: "Start Date",
-      type: "date",
-    }),
-    defineField({
-      name: "endDate",
-      title: "End Date",
-      type: "date",
-      description: "Leave blank if currently enrolled",
-    }),
-    defineField({
-      name: "current",
-      title: "Currently Enrolled",
-      type: "boolean",
-      initialValue: false,
-    }),
-    defineField({
-      name: "gpa",
-      title: "GPA",
-      type: "string",
-      description: "E.g., '3.8/4.0'",
-    }),
-    defineField({
-      name: "description",
-      title: "Description",
+      name: "message",
+      title: "Message",
       type: "text",
-      rows: 4,
-      description: "Notable courses, achievements, or activities",
+      rows: 5,
+      validation: (Rule) => Rule.required(),
     }),
     defineField({
-      name: "achievements",
-      title: "Achievements & Honors",
-      type: "array",
-      of: [{ type: "string" }],
-      description: "Dean's List, Scholarships, Awards, etc.",
+      name: "submittedAt",
+      title: "Submitted At",
+      type: "datetime",
+      initialValue: () => new Date().toISOString(),
     }),
     defineField({
-      name: "logo",
-      title: "Institution Logo",
-      type: "image",
+      name: "status",
+      title: "Status",
+      type: "string",
       options: {
-        hotspot: true,
+        list: [
+          { title: "New", value: "new" },
+          { title: "Archived", value: "archived" },
+        ],
       },
+      initialValue: "new",
     }),
     defineField({
-      name: "website",
-      title: "Institution Website",
-      type: "url",
-    }),
-    defineField({
-      name: "order",
-      title: "Display Order",
-      type: "number",
-      initialValue: 0,
+      name: "notes",
+      title: "Internal Notes",
+      type: "text",
+      rows: 3,
+      description: "Private notes about this inquiry",
     }),
   ],
   preview: {
     select: {
-      title: "degree",
-      subtitle: "institution",
-      media: "logo",
+      title: "name",
+      subtitle: "email",
+      status: "status",
+    },
+    prepare(selection) {
+      const { title, subtitle, status } = selection;
+      const statusEmoji = {
+        new: "🆕",
+        archived: "📁",
+      };
+      return {
+        title: `${
+          statusEmoji[status as keyof typeof statusEmoji] || ""
+        } ${title}`,
+        subtitle: subtitle,
+      };
     },
   },
   orderings: [
     {
-      title: "Display Order",
-      name: "orderAsc",
-      by: [{ field: "order", direction: "asc" }],
+      title: "Newest First",
+      name: "submittedDesc",
+      by: [{ field: "submittedAt", direction: "desc" }],
     },
     {
-      title: "Newest First",
-      name: "dateDesc",
-      by: [{ field: "endDate", direction: "desc" }],
+      title: "Status",
+      name: "status",
+      by: [{ field: "status", direction: "asc" }],
     },
   ],
 });
