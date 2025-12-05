@@ -42,7 +42,7 @@ export default function Navbar({ firstName, lastName }: NavbarProps) {
   ];
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const displayName = firstName && lastName ? `${firstName} ${lastName}` : "Portfolio";
+  const displayName = firstName ? `${firstName} ` : "Portfolio";
 
   return (
     <NavbarWrapper>
@@ -69,8 +69,25 @@ export default function Navbar({ firstName, lastName }: NavbarProps) {
             <a
               key={`mobile-link-${idx}`}
               href={item.link}
-              onClick={() => setIsMobileMenuOpen(false)}
-              className="relative text-neutral-600 dark:text-neutral-300 text-lg font-medium"
+              onClick={(e) => {
+                e.preventDefault();
+                const targetId = item.link.replace("#", "");
+                const element = document.getElementById(targetId);
+                
+                if (element) {
+                  const offset = 100;
+                  const elementPosition = element.getBoundingClientRect().top;
+                  const offsetPosition = elementPosition + window.scrollY - offset;
+
+                  window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                  });
+                }
+                
+                setIsMobileMenuOpen(false);
+              }}
+              className="relative text-neutral-600 dark:text-neutral-300 text-lg font-medium cursor-pointer"
             >
               <span className="block">{item.name}</span>
             </a>

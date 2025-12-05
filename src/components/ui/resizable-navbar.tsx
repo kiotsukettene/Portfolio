@@ -140,6 +140,25 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [items]);
 
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, link: string) => {
+    e.preventDefault();
+    const targetId = link.replace("#", "");
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      const offset = 100; // Offset for fixed navbar
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+    }
+    
+    onItemClick?.();
+  };
+
   return (
     <motion.div
       onMouseLeave={() => setHovered(null)}
@@ -153,9 +172,9 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
         return (
           <a
             onMouseEnter={() => setHovered(idx)}
-            onClick={onItemClick}
+            onClick={(e) => handleClick(e, item.link)}
             className={cn(
-              "relative px-4 py-2 text-neutral-600 dark:text-neutral-300 transition-colors",
+              "relative px-4 py-2 text-neutral-600 dark:text-neutral-300 transition-colors cursor-pointer",
               isActive && "text-black dark:text-white font-semibold"
             )}
             key={`link-${idx}`}
