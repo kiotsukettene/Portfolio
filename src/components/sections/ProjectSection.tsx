@@ -3,6 +3,7 @@ import Link from "next/link";
 import { defineQuery } from "next-sanity";
 import { urlFor } from "@/sanity/lib/image";
 import { sanityFetch } from "@/sanity/lib/live";
+import type { PROJECTS_QUERYResult } from "../../../sanity.types";
 
 const PROJECTS_QUERY =
   defineQuery(`*[_type == "project" && featured == true] | order(order asc)[0...6]{
@@ -35,7 +36,7 @@ export async function ProjectsSection() {
 
         <div className="@container">
           <div className="grid grid-cols-1 @2xl:grid-cols-2 @5xl:grid-cols-3 gap-8">
-            {projects.map((project) => (
+            {projects.map((project: PROJECTS_QUERYResult[number]) => (
               <div
                 key={project.slug?.current}
                 className="@container/card group bg-card border rounded-lg overflow-hidden hover:shadow-xl transition-all duration-300"
@@ -78,7 +79,7 @@ export async function ProjectsSection() {
                   {/* Tech Stack */}
                   {project.technologies && project.technologies.length > 0 && (
                     <div className="flex flex-wrap gap-1.5 @md/card:gap-2">
-                      {project.technologies.slice(0, 4).map((tech, idx) => {
+                      {project.technologies.slice(0, 4).map((tech: NonNullable<PROJECTS_QUERYResult[number]['technologies']>[number], idx: number) => {
                         const techData =
                           tech && typeof tech === "object" && "name" in tech
                             ? tech
