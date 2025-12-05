@@ -14,10 +14,9 @@ import { useState } from "react";
 
 interface NavbarProps {
   firstName?: string;
-  lastName?: string;
 }
 
-export default function Navbar({ firstName, lastName }: NavbarProps) {
+export default function Navbar({ firstName }: NavbarProps) {
   const navItems = [
     {
       name: "Home",
