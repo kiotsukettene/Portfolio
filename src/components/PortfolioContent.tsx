@@ -1,20 +1,20 @@
 import { AboutSection } from "./sections/AboutSection"
 import { HeroSection } from "./sections/HeroSection"
+import { SkillsSection } from "./sections/SkillsSection"
 
 function PortfolioContent() {
   return (<>
   <HeroSection/>
     <AboutSection/>
-  {/* <TestimonialsSection/>
   <SkillsSection/>
-  <ExperienceSection/>
+  {/* <ExperienceSection/>
   <EducationSection/>
   <ProjectsSection/>
   <CertificationsSection/>
   <AchievementsSection/>
   <ServicesSection/>
   <BlogSection/>
-  <ContactSection/> */} 
+  <ContactSection/>  */}
   </>
   )
 }
