@@ -8,7 +8,7 @@ export default function Footer({ firstName, lastName }: FooterProps) {
   const displayName =
     firstName && lastName
       ? `${firstName} ${lastName}`
-      : "John O. Doe";
+      : "Russell Loreto";
 
   return (
     <footer className="py-8 px-6 border-t border-border bg-background">

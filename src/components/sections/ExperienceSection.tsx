@@ -52,7 +52,7 @@ export async function ExperienceSection() {
           {experiences.map((exp: EXPERIENCE_QUERYResult[number]) => (
             <div
               key={`${exp.company}-${exp.position}-${exp.startDate}`}
-              className="relative pl-8 pb-8 border-l-2 border-muted last:border-l-0"
+              className="relative pl-8 pb-8 border-l-2 border-muted"
             >
               {/* Timeline dot */}
               <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-primary border-4 border-background" />

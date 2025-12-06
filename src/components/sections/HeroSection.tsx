@@ -20,7 +20,8 @@ const HERO_QUERY = defineQuery(`*[_id == "singleton-profile"][0]{
   availability,
   socialLinks,
   yearsOfExperience,
-  profileImage
+  profileImage,
+  "resumeUrl": resume.asset->url
 }`);
 
 export async function HeroSection() {
@@ -87,49 +88,19 @@ export async function HeroSection() {
                       LinkedIn
                     </Link>
                   )}
-                  {profile.socialLinks.twitter && (
+                  {profile.resumeUrl && (
                     <Link
-                      href={profile.socialLinks.twitter}
+                      href={profile.resumeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border hover:bg-accent transition-colors text-sm @md/hero:text-base"
+                      download
+                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 transition-colors text-sm @md/hero:text-base font-semibold"
                     >
-                      Twitter
-                    </Link>
-                  )}
-                  {profile.socialLinks.website && (
-                    <Link
-                      href={profile.socialLinks.website}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-4 py-2 @md/hero:px-6 @md/hero:py-3 rounded-lg border hover:bg-accent transition-colors text-sm @md/hero:text-base"
-                    >
-                      Website
+                      Download Resume
                     </Link>
                   )}
                 </div>
               )}
-
-              <div className="flex flex-wrap gap-4 @md/hero:gap-6 pt-4 text-xs @md/hero:text-sm text-muted-foreground">
-                {profile.email && (
-                  <div className="flex items-center gap-2">
-                    <span>📧</span>
-                    <span className="truncate">{profile.email}</span>
-                  </div>
-                )}
-                {profile.location && (
-                  <div className="flex items-center gap-2">
-                    <span>📍</span>
-                    <span>{profile.location}</span>
-                  </div>
-                )}
-                {profile.availability && (
-                  <div className="flex items-center gap-2">
-                    <span>✅</span>
-                    <span>{profile.availability}</span>
-                  </div>
-                )}
-              </div>
             </div>
 
             {/* Profile Image */}

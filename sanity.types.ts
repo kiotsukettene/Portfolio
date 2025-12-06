@@ -534,6 +534,16 @@ export type Profile = {
     stackoverflow?: string;
   };
   yearsOfExperience?: number;
+  resume?: {
+    asset?: {
+      _ref: string;
+      _type: "reference";
+      _weak?: boolean;
+      [internalGroqTypeReferenceTo]?: "sanity.fileAsset";
+    };
+    media?: unknown;
+    _type: "file";
+  };
   stats?: Array<{
     label?: string;
     value?: string;
@@ -639,6 +649,17 @@ export type Geopoint = {
 
 export type AllSanitySchemaTypes = Navigation | SiteSettings | SanityImageCrop | SanityImageHotspot | Contact | Service | Slug | Blog | Achievement | Certification | Testimonial | Education | Experience | Skill | Project | Profile | SanityImagePaletteSwatch | SanityImagePalette | SanityImageDimensions | SanityImageMetadata | SanityFileAsset | SanityAssetSourceData | SanityImageAsset | Geopoint;
 export declare const internalGroqTypeReferenceTo: unique symbol;
+// Source: ./src/components/LayoutWrapper.tsx
+// Variable: PROFILE_QUERY
+// Query: *[_id == "singleton-profile"][0]{  firstName,  lastName}
+export type PROFILE_QUERYResult = {
+  firstName: null;
+  lastName: null;
+} | {
+  firstName: string | null;
+  lastName: string | null;
+} | null;
+
 // Source: ./src/components/sections/AboutSection.tsx
 // Variable: ABOUT_QUERY
 // Query: *[_id == "singleton-profile"][0]{  firstName,  lastName,  fullBio,  yearsOfExperience,  stats,  email,  phone,  location}
@@ -763,7 +784,7 @@ export type EXPERIENCE_QUERYResult = Array<{
 
 // Source: ./src/components/sections/HeroSection.tsx
 // Variable: HERO_QUERY
-// Query: *[_id == "singleton-profile"][0]{  firstName,  lastName,  headline,  headlineStaticText,  headlineAnimatedWords,  headlineAnimationDuration,  shortBio,  email,  phone,  location,  availability,  socialLinks,  yearsOfExperience,  profileImage}
+// Query: *[_id == "singleton-profile"][0]{  firstName,  lastName,  headline,  headlineStaticText,  headlineAnimatedWords,  headlineAnimationDuration,  shortBio,  email,  phone,  location,  availability,  socialLinks,  yearsOfExperience,  profileImage,  "resumeUrl": resume.asset->url}
 export type HERO_QUERYResult = {
   firstName: null;
   lastName: null;
@@ -779,6 +800,7 @@ export type HERO_QUERYResult = {
   socialLinks: null;
   yearsOfExperience: null;
   profileImage: null;
+  resumeUrl: null;
 } | {
   firstName: null;
   lastName: null;
@@ -794,6 +816,7 @@ export type HERO_QUERYResult = {
   socialLinks: null;
   yearsOfExperience: number | null;
   profileImage: null;
+  resumeUrl: null;
 } | {
   firstName: null;
   lastName: null;
@@ -809,6 +832,7 @@ export type HERO_QUERYResult = {
   socialLinks: null;
   yearsOfExperience: null;
   profileImage: null;
+  resumeUrl: null;
 } | {
   firstName: null;
   lastName: null;
@@ -824,6 +848,7 @@ export type HERO_QUERYResult = {
   socialLinks: null;
   yearsOfExperience: null;
   profileImage: null;
+  resumeUrl: null;
 } | {
   firstName: string | null;
   lastName: string | null;
@@ -860,6 +885,7 @@ export type HERO_QUERYResult = {
     alt?: string;
     _type: "image";
   } | null;
+  resumeUrl: string | null;
 } | null;
 
 // Source: ./src/components/sections/ProjectSection.tsx
@@ -896,9 +922,10 @@ export type PROJECTS_QUERYResult = Array<{
 import "@sanity/client";
 declare module "@sanity/client" {
   interface SanityQueries {
+    "*[_id == \"singleton-profile\"][0]{\n  firstName,\n  lastName\n}": PROFILE_QUERYResult;
     "*[_id == \"singleton-profile\"][0]{\n  firstName,\n  lastName,\n  fullBio,\n  yearsOfExperience,\n  stats,\n  email,\n  phone,\n  location\n}": ABOUT_QUERYResult;
     "*[_type == \"experience\"] | order(startDate desc){\n  company,\n  position,\n  employmentType,\n  location,\n  startDate,\n  endDate,\n  current,\n  description,\n  responsibilities,\n  achievements,\n  technologies[]->{name, category},\n  companyLogo,\n  companyWebsite\n}": EXPERIENCE_QUERYResult;
-    "*[_id == \"singleton-profile\"][0]{\n  firstName,\n  lastName,\n  headline,\n  headlineStaticText,\n  headlineAnimatedWords,\n  headlineAnimationDuration,\n  shortBio,\n  email,\n  phone,\n  location,\n  availability,\n  socialLinks,\n  yearsOfExperience,\n  profileImage\n}": HERO_QUERYResult;
+    "*[_id == \"singleton-profile\"][0]{\n  firstName,\n  lastName,\n  headline,\n  headlineStaticText,\n  headlineAnimatedWords,\n  headlineAnimationDuration,\n  shortBio,\n  email,\n  phone,\n  location,\n  availability,\n  socialLinks,\n  yearsOfExperience,\n  profileImage,\n  \"resumeUrl\": resume.asset->url\n}": HERO_QUERYResult;
     "*[_type == \"project\" && featured == true] | order(order asc)[0...6]{\n  title,\n  slug,\n  tagline,\n  category,\n  liveUrl,\n  githubUrl,\n  coverImage,\n  technologies[]->{name, category, color}\n}": PROJECTS_QUERYResult;
   }
 }

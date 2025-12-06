@@ -10,6 +10,7 @@ import {
   MobileNavToggle,
   MobileNavMenu,
 } from "@/components/ui/resizable-navbar";
+import { ModeToggle } from "@/components/ModeToggle";
 import { useState } from "react";
 
 interface NavbarProps {
@@ -48,17 +49,23 @@ export default function Navbar({ firstName }: NavbarProps) {
       {/* Desktop Navigation */}
       <NavBody>
         <NavbarLogo name={displayName} />
-        <NavItems items={navItems} />
+        <div className="flex items-center gap-2 ml-auto">
+          <NavItems items={navItems} />
+          <ModeToggle />
+        </div>
       </NavBody>
 
       {/* Mobile Navigation */}
       <MobileNav>
         <MobileNavHeader>
           <NavbarLogo name={displayName} />
-          <MobileNavToggle
-            isOpen={isMobileMenuOpen}
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          />
+          <div className="flex items-center gap-3">
+            <ModeToggle />
+            <MobileNavToggle
+              isOpen={isMobileMenuOpen}
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            />
+          </div>
         </MobileNavHeader>
         <MobileNavMenu
           isOpen={isMobileMenuOpen}

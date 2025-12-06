@@ -131,6 +131,15 @@ export default defineType({
       validation: (Rule) => Rule.min(0),
     }),
     defineField({
+      name: "resume",
+      title: "Resume/CV",
+      type: "file",
+      description: "Upload your resume PDF",
+      options: {
+        accept: ".pdf,.doc,.docx",
+      },
+    }),
+    defineField({
       name: "stats",
       title: "Profile Statistics",
       type: "array",
