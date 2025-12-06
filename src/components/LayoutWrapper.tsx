@@ -13,9 +13,9 @@ export async function LayoutWrapper({ children }: { children: React.ReactNode })
 
   return (
     <>
-      <Navbar firstName={profile?.firstName}/>
+      <Navbar firstName={profile?.firstName || undefined} />
       <main>{children}</main>
-      <Footer firstName={profile?.firstName}/>
+      <Footer firstName={profile?.firstName || undefined} />
     </>
   );
 }
