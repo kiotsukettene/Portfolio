@@ -28,16 +28,16 @@ export default function Navbar({ firstName }: NavbarProps) {
       link: "#about",
     },
     {
-      name: "Skills",
-      link: "#skills",
+      name: "Projects",
+      link: "#projects",
     },
     {
       name: "Experience",
       link: "#experience",
     },
     {
-      name: "Projects",
-      link: "#projects",
+      name: "Skills",
+      link: "#skills",
     },
   ];
 

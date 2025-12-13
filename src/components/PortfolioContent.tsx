@@ -7,10 +7,10 @@ import { ProjectsSection } from "./sections/ProjectSection"
 function PortfolioContent() {
   return (<>
   <HeroSection/>
-    <AboutSection/>
-  <SkillsSection/>
-  <ExperienceSection/>
+  <AboutSection/>
   <ProjectsSection/>
+  <ExperienceSection/>
+  <SkillsSection/>
   </>
   )
 }
