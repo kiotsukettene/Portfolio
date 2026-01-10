@@ -120,14 +120,19 @@ export const NavItems = ({ items, className, onItemClick }: NavItemsProps) => {
     const handleScroll = () => {
       const sections = items.map((item) => item.link.replace("#", ""));
       let current = "";
+      let closestDistance = Infinity;
 
       for (const section of sections) {
         const element = document.getElementById(section);
         if (element) {
           const rect = element.getBoundingClientRect();
-          if (rect.top <= 150 && rect.bottom >= 150) {
+          // Calculate distance from the top of the viewport (accounting for navbar)
+          const distanceFromTop = Math.abs(rect.top - 150);
+          
+          // Check if the section is in view and closer than previous sections
+          if (rect.top <= 300 && rect.bottom >= 0 && distanceFromTop < closestDistance) {
+            closestDistance = distanceFromTop;
             current = `#${section}`;
-            break;
           }
         }
       }
