@@ -96,7 +96,7 @@ export async function AboutSection() {
         {/* Stats from CMS */}
         {profile.stats && profile.stats.length > 0 && (
           <div className="@container mt-12 pt-12 border-t">
-            <div className="grid grid-cols-2 @lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 @md:grid-cols-3 gap-6 max-w-3xl mx-auto">
               {profile.stats.map((stat,idx) => (
                 <div
                   key={`${stat.label}-${idx}`}

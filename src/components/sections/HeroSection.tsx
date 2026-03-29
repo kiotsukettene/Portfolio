@@ -107,8 +107,9 @@ export async function HeroSection() {
             {profile.profileImage && (
               <ProfileImage
                 imageUrl={urlFor(profile.profileImage)
-                  .width(600)
-                  .height(600)
+                  .width(1200)
+                  .height(1200)
+                  .quality(100)
                   .url()}
                 firstName={profile.firstName || ""}
                 lastName={profile.lastName || ""}
